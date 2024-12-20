@@ -19,6 +19,19 @@ app.get("/api/:id", (req, res) => {
   findData ? res.json(findData) : res.status(404).send("Page not found");
   //   res.json(findData);
 });
+
+// query parameters
+app.get("/api/data/search", (req, res) => {
+  let responseData = [...data];
+  const { name } = req.query;
+  if (name) {
+    responseData = responseData.filter((e) =>
+      e.name.toLowerCase().includes(name)
+    );
+  }
+  res.json(responseData);
+});
+
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
